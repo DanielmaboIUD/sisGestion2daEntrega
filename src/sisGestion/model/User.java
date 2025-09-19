@@ -30,7 +30,8 @@ public class User {
     
     public User consultarUsuario(int code){
     
-    falta lógica para este método 
+    falta lógica para este método
+            
     }
 
     public static int getIncrementIdUser() {

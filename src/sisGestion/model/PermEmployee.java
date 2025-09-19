@@ -10,5 +10,31 @@ package sisGestion.model;
  */
 public class PermEmployee extends Employee{
     
+    private String benefits;
+    
+    public PermEmployee(String name, String documentType, int documentNumber, 
+            String email, int age, String entryDate, String payment, 
+            String schedule, String contractType, String benefits) {
+        super(name, documentType, documentNumber, email, age, entryDate, payment,
+              schedule, contractType);
+        
+        this.benefits = benefits;
+    }
+    
+    public boolean requestVacations(String answer){
+        if (answer.equals(false)) {
+            return false;
+        }
+        return true;
+    }
+
+    public String getBenefits() {
+        return benefits;
+    }
+
+    public void setBenefits(String benefits) {
+        this.benefits = benefits;
+    }
+    
     
 }
