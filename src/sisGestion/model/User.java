@@ -28,20 +28,10 @@ public class User {
         incrementIdUser++;
     }
     
-    public User consultarUsuario(int code){
+    public int getCode() {
+        return code;
+    }
     
-    falta lógica para este método
-            
-    }
-
-    public static int getIncrementIdUser() {
-        return incrementIdUser;
-    }
-
-    public static void setIncrementIdUser(int incrementIdUser) {
-        User.incrementIdUser = incrementIdUser;
-    }
-
     public String getName() {
         return name;
     }
@@ -82,4 +72,15 @@ public class User {
         this.age = age;
     }
     
+    @Override
+public String toString() {
+    return "User{" +
+           "code=" + code +
+           ", name='" + name + '\'' +
+           ", documentType='" + documentType + '\'' +
+           ", documentNumber=" + documentNumber +
+           ", email='" + email + '\'' +
+           ", age=" + age +
+           '}';
+}
 }
