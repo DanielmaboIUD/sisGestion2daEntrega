@@ -4,11 +4,13 @@
  */
 package sisGestion.model;
 
+import sisGestion.Interfaces.requestVacations;
+
 /**
  *
  * @author DESARROLLOPORTADA
  */
-public class PermEmployee extends Employee{
+public class PermEmployee extends Employee implements requestVacations{
     
     private String benefits;
     
@@ -21,7 +23,8 @@ public class PermEmployee extends Employee{
         this.benefits = benefits;
     }
     
-    public boolean requestVacations(String answer){
+    @Override
+    public boolean approveVacations(String answer){
         if (answer.equals(false)) {
             return false;
         }

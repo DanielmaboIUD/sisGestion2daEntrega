@@ -4,11 +4,13 @@
  */
 package sisGestion.model;
 
+import sisGestion.Interfaces.renewContract;
+
 /**
  *
  * @author DESARROLLOPORTADA
  */
-public class TempEmployee extends Employee{
+public class TempEmployee extends Employee implements renewContract{
     
     private String outDate;
 
@@ -20,13 +22,6 @@ public class TempEmployee extends Employee{
         
         this.outDate = outDate;
     }
-  
-    public boolean renewContract(String result){
-            if (result.equals(false)){
-                return false;
-            }
-        return true;
-    }
 
     public String getOutDate() {
         return outDate;
@@ -36,5 +31,12 @@ public class TempEmployee extends Employee{
         this.outDate = outDate;
     }
     
+    @Override
+    public boolean contractRenewable(String result){
+            if (result.equals(false)){
+                return false;
+            }
+        return true;
+    }
     
 }

@@ -73,14 +73,14 @@ public class User {
     }
     
     @Override
-public String toString() {
-    return "User{" +
-           "code=" + code +
-           ", name='" + name + '\'' +
-           ", documentType='" + documentType + '\'' +
-           ", documentNumber=" + documentNumber +
-           ", email='" + email + '\'' +
-           ", age=" + age +
-           '}';
-}
+    public String toString() {
+        return "User{" +
+               "code=" + code +
+               ", name='" + name + '\'' +
+               ", documentType='" + documentType + '\'' +
+               ", documentNumber=" + documentNumber +
+               ", email='" + email + '\'' +
+               ", age=" + age +
+               '}';
+    }
 }

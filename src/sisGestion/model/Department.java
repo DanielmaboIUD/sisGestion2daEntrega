@@ -19,7 +19,6 @@ public class Department {
     private List<Employee> employees; 
     private String departmentHead;
     
-    //Constructor
     public Department(String name, List Employees, String departmentHead) {
         this.code = Department.autoIncrementDepartment;
         this.name = name;
@@ -28,7 +27,6 @@ public class Department {
         this.employees = new ArrayList<>();
         autoIncrementDepartment++;
     }
-    //Getters And Setters
     public int getCode() {
         return code;
     }
@@ -56,7 +54,6 @@ public class Department {
     public void setDepartmentHead(String departmentHead) {
         this.departmentHead = departmentHead;
     }
-    // Métods
     public boolean addEmployee(Employee employee) {
         return this.employees.add(employee);
     }
@@ -69,10 +66,10 @@ public class Department {
     public Employee searchEmployee(Employee employee) {
         for (Employee searchEmp : employees) {
             if (searchEmp.equals(employee)) {
-                return searchEmp; // encontrado
+                return searchEmp;
             }
         }
-        return null; // no encontrado
+        return null;
     }
     public Employee searchEmployeeByCode(int code) {
         for (Employee searchEmp : employees) {

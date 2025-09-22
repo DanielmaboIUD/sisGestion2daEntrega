@@ -15,8 +15,8 @@ public class Employee extends User{
     private String contractType;
 
     public Employee(String name, String documentType, int documentNumber, 
-           String email, int age, String entryDate,
-           String payment, String schedule, String contractType) {
+        String email, int age, String entryDate,
+        String payment, String schedule, String contractType) {
         super(name, documentType, documentNumber, email, age);
         this.entryDate = entryDate;
         this.payment = payment;
@@ -24,7 +24,6 @@ public class Employee extends User{
         this.contractType = contractType;
 
     }
-
     public String getEntryDate() {
         return entryDate;
     }
@@ -56,6 +55,5 @@ public class Employee extends User{
     public void setContractType(String contractType) {
         this.contractType = contractType;
     }
-    
     
 }
