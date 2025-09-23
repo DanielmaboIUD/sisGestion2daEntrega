@@ -38,6 +38,11 @@ public class PermEmployee extends Employee implements requestVacations{
     public void setBenefits(String benefits) {
         this.benefits = benefits;
     }
-    
+    @Override
+    public String toString() {
+    return super.toString() +
+           ", benefits='" + benefits + '\''; // atributo propio de Perm
+}
+
     
 }

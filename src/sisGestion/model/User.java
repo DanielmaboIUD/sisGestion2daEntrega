@@ -19,13 +19,12 @@ public class User {
     private int age;
 
     public User(String name, String documentType, int documentNumber, String email, int age) {
-        this.code= User.incrementIdUser;
+        this.code=incrementIdUser++;
         this.name = name;
         this.documentType = documentType;
         this.documentNumber = documentNumber;
         this.email = email;
         this.age = age;
-        incrementIdUser++;
     }
     
     public int getCode() {

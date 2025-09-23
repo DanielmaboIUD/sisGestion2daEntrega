@@ -17,9 +17,9 @@ public class Department {
     private int code;
     private String name;
     private List<Employee> employees; 
-    private String departmentHead;
+    private Employee departmentHead;
     
-    public Department(String name, List Employees, String departmentHead) {
+    public Department(String name, List Employees, Employee departmentHead) {
         this.code = Department.autoIncrementDepartment;
         this.name = name;
         this.employees = Employees;
@@ -47,16 +47,18 @@ public class Department {
         this.employees = employees;
     }
 
-    public String getDepartmentHead() {
+    public Employee getDepartmentHead() {
         return departmentHead;
     }
 
-    public void setDepartmentHead(String departmentHead) {
+    public void setDepartmentHead(Employee departmentHead) {
         this.departmentHead = departmentHead;
     }
+    
     public boolean addEmployee(Employee employee) {
         return this.employees.add(employee);
     }
+    
     public void listEmployees() {
         for (Employee e : employees) {
             System.out.println(e);
@@ -71,6 +73,7 @@ public class Department {
         }
         return null;
     }
+    
     public Employee searchEmployeeByCode(int code) {
         for (Employee searchEmp : employees) {
             if (searchEmp.getCode() == code) {
@@ -79,6 +82,4 @@ public class Department {
         }
         return null;
     }
-
-
 }

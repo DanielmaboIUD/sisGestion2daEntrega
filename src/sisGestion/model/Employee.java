@@ -55,5 +55,13 @@ public class Employee extends User{
     public void setContractType(String contractType) {
         this.contractType = contractType;
     }
-    
+    @Override
+    public String toString() {
+    return super.toString() + 
+           ", entryDate='" + entryDate + '\'' +
+           ", payment='" + payment + '\'' +
+           ", schedule='" + schedule + '\'' +
+           ", contractType='" + contractType + '\'';
+}
+
 }

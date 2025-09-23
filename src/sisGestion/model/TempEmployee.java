@@ -39,4 +39,10 @@ public class TempEmployee extends Employee implements renewContract{
         return true;
     }
     
+    @Override
+    public String toString() {
+    return super.toString() +
+           ", endDate='" + outDate + '\''; // atributo propio de Temp
+}
+    
 }
