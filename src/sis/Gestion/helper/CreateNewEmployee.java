@@ -15,58 +15,72 @@ import sisGestion.model.EmployeeType;
  * @author Marcela Realpe
  */
 public class CreateNewEmployee {
-    private Scanner sc;
-    private adminController adminController;
+    private final Scanner sc;
 
-    public CreateNewEmployee(Scanner sc, adminController adminController) {
+    public CreateNewEmployee(Scanner sc) {
         this.sc = sc;
-        this.adminController = adminController;
     }
 
-    public Employee crearEmpleadoInteractivo() {
-        System.out.println("=== Crear Empleado ===");
-        System.out.println("Seleccione tipo de empleado: ");
-        System.out.println("1. Temporal");
-        System.out.println("2. Permanente");
-        int option = sc.nextInt();
-        sc.nextLine(); // limpiar buffer
+        public static class EmployeeData {
+        public EmployeeType type;
+        public String name;
+        public String documentType;
+        public int documentNumber;
+        public String email;
+        public int age;
+        public String entryDate;
+        public String payment;
+        public String schedule;
+        public String contractType;
+        public String extraAttribute;
+    }
+        
+        public EmployeeData collectEmployeeData() {
+        EmployeeData data = new EmployeeData();
+        
+        
+        System.out.print("BIENVENIDO AL SISTEMA DE GESION DE EMPLEADOS DE COMPUWORK" + "\n");
+        System.out.print("Por favor ingrese los sigueintes datos para crear un empleado:"+ "\n") ;
 
-        EmployeeType type = (option == 1) ? EmployeeType.TEMPORAL : EmployeeType.PERMANENTE;
 
-        // Datos comunes
-        System.out.print("Nombre: ");
-        String name = sc.nextLine();
-        System.out.print("Tipo de documento: ");
-        String docType = sc.nextLine();
-        System.out.print("Número de documento: ");
-        int docNum = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Email: ");
-        String email = sc.nextLine();
-        System.out.print("Edad: ");
-        int age = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Fecha de ingreso: ");
-        String entryDate = sc.nextLine();
-        System.out.print("Pago: ");
-        String payment = sc.nextLine();
-        System.out.print("Horario: ");
-        String schedule = sc.nextLine();
-        System.out.print("Tipo de contrato: ");
-        String contractType = sc.nextLine();
+        System.out.print("Ingrese nombre: ");
+        data.name = sc.nextLine();
 
-        String extra;
-        if (type == EmployeeType.TEMPORAL) {
-            System.out.print("Fecha de salida: ");
-            extra = sc.nextLine();
+        System.out.print("Ingrese tipo de documento: ");
+        data.documentType = sc.nextLine();
+
+        System.out.print("Ingrese número de documento: ");
+        data.documentNumber = Integer.parseInt(sc.nextLine());
+
+        System.out.print("Ingrese email: ");
+        data.email = sc.nextLine();
+
+        System.out.print("Ingrese edad: ");
+        data.age = Integer.parseInt(sc.nextLine());
+
+        System.out.print("Ingrese fecha de ingreso: ");
+        data.entryDate = sc.nextLine();
+
+        System.out.print("Ingrese salario: ");
+        data.payment = sc.nextLine();
+
+        System.out.print("Ingrese horario: ");
+        data.schedule = sc.nextLine();
+
+        System.out.print("Tipo de contrato (TEMPORAL o PERMANENTE): ");
+        data.contractType = sc.nextLine().toUpperCase();
+        data.type = EmployeeType.valueOf(data.contractType);
+
+        if (data.type == EmployeeType.TEMPORAL) {
+            System.out.print("Ingrese fecha de finalización del contrato: ");
+            data.extraAttribute = sc.nextLine();
         } else {
-            System.out.print("Beneficios: ");
-            extra = sc.nextLine();
+            System.out.print("Ingrese beneficios: ");
+            data.extraAttribute = sc.nextLine();
         }
 
-        return adminController.createEmployee(
-                type, name, docType, docNum, email, age,
-                entryDate, payment, schedule, contractType, extra);
+        return data;
     }
+   
 }
 
