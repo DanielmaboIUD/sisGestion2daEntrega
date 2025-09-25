@@ -13,17 +13,17 @@ import sisGestion.model.Employee;
  */
 public class departmentController {
 
-    // Agregar empleado a un departamento
+    
     public boolean addEmployeeToDepartment(Department department, Employee employee) {
         return department.addEmployee(employee);
     }
 
-    // Eliminar empleado de un departamento
+
     public boolean removeEmployeeFromDepartment(Department department, Employee employee) {
         return department.getEmployees().remove(employee);
     }
 
-    // Buscar empleado por ID
+    
     public Employee findEmployeeById(Department department, int code) {
         for (Employee e : department.getEmployees()) {
             if (e.getCode()== code) {

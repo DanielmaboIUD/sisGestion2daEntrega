@@ -27,7 +27,7 @@ public class adminController {
 
     public adminController(Scanner sc) {
         this.sc = sc;
-        this.helper = new CreateNewEmployee(sc); // 👈 el controlador controla al helper
+        this.helper = new CreateNewEmployee(sc);
     }
 
     private Employee createEmployee(EmployeeData data) {
@@ -50,7 +50,7 @@ public class adminController {
         return emp;
     }
 
-    // 🔹 flujo interactivo: el controlador usa al helper
+    
     public void interactiveEmployeeCreation() {
         boolean continuar = true;
 

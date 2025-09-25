@@ -13,17 +13,17 @@ import sisGestion.model.Report;
  */
 public class reportController {
 
-    // Agregar métrica a un reporte
+
     public void addMetricToReport(Report report, Metric metric) {
         report.getMetrics().add(metric);
     }
 
-    // Eliminar métrica de un reporte
+ 
     public boolean removeMetricFromReport(Report report, Metric metric) {
         return report.getMetrics().remove(metric);
     }
 
-    // Actualizar descripción del reporte
+    
     public void updateReportDescription(Report report, String newDescription) {
         report.setDescription(newDescription);
     }
