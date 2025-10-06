@@ -6,7 +6,7 @@ package sis.Gestion.helper;
 
 import sisGestion.model.Employee;
 import java.util.Scanner;
-import sisGestion.controller.adminController;
+import sisGestion.controller.AdminController;
 import sisGestion.model.Employee;
 import sisGestion.model.EmployeeType;
 
@@ -50,13 +50,27 @@ public class CreateNewEmployee {
         data.documentType = sc.nextLine();
 
         System.out.print("Ingrese número de documento: ");
-        data.documentNumber = Integer.parseInt(sc.nextLine());
+        while (true) {
+            try {
+                data.documentNumber = Integer.parseInt(sc.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.print("Entrada inválida. Por favor, ingrese un número válido para el documento: ");
+            }
+}
 
         System.out.print("Ingrese email: ");
         data.email = sc.nextLine();
 
         System.out.print("Ingrese edad: ");
-        data.age = Integer.parseInt(sc.nextLine());
+        while (true) {
+            try {
+                data.age = Integer.parseInt(sc.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.print("Entrada inválida. Por favor, ingrese un número válido para la edad: ");
+            }
+        }
 
         System.out.print("Ingrese fecha de ingreso: ");
         data.entryDate = sc.nextLine();

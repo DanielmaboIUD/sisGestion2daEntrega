@@ -16,14 +16,13 @@ public class Department {
     private static int autoIncrementDepartment=1;
     private int code;
     private String name;
-    private List<Employee> employees; 
+    private List<Employee> employees;
     private Employee departmentHead;
     
-    public Department(String name, List Employees, Employee departmentHead) {
+    public Department(String name) {
         this.code = Department.autoIncrementDepartment;
         this.name = name;
-        this.employees = Employees;
-        this.departmentHead = departmentHead;
+        this.departmentHead = null;
         this.employees = new ArrayList<>();
         autoIncrementDepartment++;
     }

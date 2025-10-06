@@ -9,16 +9,21 @@
  * @author Daniel Marín
  */
 import java.util.Scanner;
-import sisGestion.controller.adminController;
+import sisGestion.controller.AdminController;
+import sisGestion.controller.DepartmentController;
+import sisGestion.vista.AppView;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        adminController adminController = new adminController(sc);
-
-        adminController.interactiveEmployeeCreation();
-
-        System.out.println("MUCHAS GRACIAS, NOS VEMOS PRONTO!");
+  public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        AdminController adminController = new AdminController(scanner);
+        DepartmentController departmentController = new DepartmentController();
+        
+        AppView view = new AppView(adminController, departmentController, scanner);
+        
+        view.start();
+        
+        scanner.close();
     }
 }
 
