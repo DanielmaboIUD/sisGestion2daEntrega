@@ -62,11 +62,11 @@ public class AppView {
     private int getUserChoice() {
         try {
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consumir el salto de línea
+            scanner.nextLine();
             return choice;
         } catch (InputMismatchException e) {
-            scanner.nextLine(); // Limpiar el buffer del scanner
-            return -1; // Retorna un valor inválido para que el switch muestre el error
+            scanner.nextLine();
+            return -1;
         }
     }
 
@@ -92,7 +92,7 @@ public class AppView {
             return;
         }
 
-        // 1. Seleccionar Departamento
+
         System.out.println("Departamentos disponibles:");
         departments.forEach(dept -> System.out.println("  ID: " + dept.getCode() + " - Nombre: " + dept.getName()));
         System.out.print("Ingrese el ID del departamento: ");
@@ -104,7 +104,7 @@ public class AppView {
             return;
         }
 
-        // 2. Seleccionar Empleado
+        
         System.out.println("\nEmpleados disponibles:");
         employees.forEach(emp -> System.out.println("  ID: " + emp.getCode() + " - Nombre: " + emp.getName()));
         System.out.print("Ingrese el ID del empleado a asignar: ");
@@ -116,7 +116,7 @@ public class AppView {
             return;
         }
 
-        // 3. Asignar
+        
         if (departmentController.addEmployeeToDepartment(selectedDept, selectedEmp)) {
             System.out.println("\n✅ ¡Éxito! Empleado '" + selectedEmp.getName() + "' asignado al departamento '" + selectedDept.getName() + "'.");
         } else {
