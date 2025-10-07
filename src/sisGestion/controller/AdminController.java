@@ -20,12 +20,12 @@ import sisGestion.model.TempEmployee;
  *
  * @author Daniel Marín
  */
-public class adminController {
+public class AdminController {
     private final List<Employee> employees = new ArrayList<>();
     private final CreateNewEmployee helper;
     private final Scanner sc;
 
-    public adminController(Scanner sc) {
+    public AdminController(Scanner sc) {
         this.sc = sc;
         this.helper = new CreateNewEmployee(sc);
     }
