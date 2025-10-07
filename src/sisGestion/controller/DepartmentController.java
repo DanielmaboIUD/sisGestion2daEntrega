@@ -4,6 +4,8 @@
  */
 package sisGestion.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import sisGestion.model.Department;
 import sisGestion.model.Employee;
 
@@ -13,7 +15,28 @@ import sisGestion.model.Employee;
  */
 public class DepartmentController {
 
+    private final List<Department> departments = new ArrayList<>();
     
+    public Department createDepartment(String name) {
+      Department newDepartment = new Department(name);
+      this.departments.add(newDepartment);
+      System.out.println("Departamento '" + name + "' creado exitosamente.");
+        return newDepartment;
+    }
+       
+    public List<Department> getDepartments() {
+      return this.departments;
+    }
+    
+    public Department findDepartmentByCode(int code) {
+        for (Department dept : departments) {
+            if (dept.getCode() == code) {
+                return dept;
+            }
+        }
+        return null;
+    }
+        
     public boolean addEmployeeToDepartment(Department department, Employee employee) {
         return department.addEmployee(employee);
     }

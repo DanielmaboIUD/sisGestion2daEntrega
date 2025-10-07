@@ -21,9 +21,9 @@ public class AppView {
     private final DepartmentController departmentController;
     private final Scanner scanner;
 
-    public AppView(AdminController adminController, DepartmentController departmentController, Scanner scanner) {
-        this.adminController = adminController;
-        this.departmentController = departmentController;
+    public AppView(AdminController AdminController, DepartmentController DepartmentController, Scanner scanner) {
+        this.adminController = AdminController;
+        this.departmentController = DepartmentController;
         this.scanner = scanner;
     }
 
@@ -49,7 +49,7 @@ public class AppView {
     }
 
     private void showMainMenu() {
-        System.out.println("\n===== MENÚ PRINCIPAL =====");
+        System.out.println("\nBIENVENIDO A SISGESTIÓN, QUÉ DESEAS HACER?");
         System.out.println("1. Crear nuevo departamento");
         System.out.println("2. Crear nuevo empleado");
         System.out.println("3. Asignar empleado a un departamento");
@@ -81,7 +81,6 @@ public class AppView {
         System.out.println("\n--- Creación de Empleado ---");
         adminController.interactiveEmployeeCreation();
     }
-
     private void handleAssignEmployee() {
         System.out.println("\n--- Asignar Empleado a Departamento ---");
         

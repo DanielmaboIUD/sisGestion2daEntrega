@@ -9,11 +9,8 @@ import java.util.List;
 import java.util.Scanner;
 import sis.Gestion.helper.CreateNewEmployee;
 import sis.Gestion.helper.CreateNewEmployee.EmployeeData;
-import sisGestion.model.Department;
 import sisGestion.model.Employee;
-import sisGestion.model.EmployeeType;
 import sisGestion.model.PermEmployee;
-import sisGestion.model.Report;
 import sisGestion.model.TempEmployee;
 
 /**
@@ -75,5 +72,14 @@ public class AdminController {
 
     public List<Employee> getEmployees() {
         return employees;
+    }
+    
+    public Employee findEmployeeByCode(int code) {
+        for (Employee emp : employees) {
+            if (emp.getCode() == code) {
+                return emp;
+            }
+        }
+        return null; // No se encontró el empleado
     }
 }
