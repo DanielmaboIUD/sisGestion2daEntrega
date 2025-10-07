@@ -11,7 +11,7 @@ import sisGestion.model.Report;
  *
  * @author Daniel Marín
  */
-public class reportController {
+public class ReportController {
 
 
     public void addMetricToReport(Report report, Metric metric) {

@@ -11,7 +11,7 @@ import sisGestion.model.Employee;
  *
  * @author Daniel Marín
  */
-public class departmentController {
+public class DepartmentController {
 
     
     public boolean addEmployeeToDepartment(Department department, Employee employee) {
