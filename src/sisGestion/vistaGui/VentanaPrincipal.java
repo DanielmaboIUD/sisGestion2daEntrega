@@ -10,6 +10,9 @@ import sisGestion.controller.AdminController;
 import sisGestion.controller.DepartmentController;
 import sisGestion.model.Department;
 import sisGestion.model.Employee;
+import sisGestion.vistaGui.utils.ButtonEditor;
+import sisGestion.vistaGui.utils.ButtonRenderer;
+import javax.swing.JCheckBox;
 
 public class VentanaPrincipal extends javax.swing.JFrame {
     
@@ -23,9 +26,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         initComponents();
         configurarEventos();
+        configurarAnchosDeColumnas();
+        
+        int alturaFila = 35; // Puedes cambiar este valor
+        TablaEmpleados.setRowHeight(alturaFila);
+        TablaDepartamentos.setRowHeight(alturaFila);
+        
+        int accionesColumnIndex = TablaEmpleados.getColumnModel().getColumnCount() - 1;
+        TablaEmpleados.getColumnModel().getColumn(accionesColumnIndex).setCellRenderer(new ButtonRenderer());
+        TablaEmpleados.getColumnModel().getColumn(accionesColumnIndex).setCellEditor(new ButtonEditor(new JCheckBox()));
+        
         actualizarTablaEmpleados();
         actualizarTablaDepartamentos();
-        
         this.setLocationRelativeTo(null);
     }
 
@@ -93,6 +105,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         model.addRow(rowData);
     }
     }
+    
+    private void configurarAnchosDeColumnas() {
+    // Obtenemos el modelo de columnas de la tabla de empleados
+    javax.swing.table.TableColumnModel columnModel = TablaEmpleados.getColumnModel();
+
+    // Columna 0: "ID" - la hacemos pequeña
+    columnModel.getColumn(0).setPreferredWidth(40);
+    columnModel.getColumn(0).setMaxWidth(50); // Opcional: fija un tamaño máximo
+
+    // Columna 1: "Nombre" - le damos más espacio
+    columnModel.getColumn(1).setPreferredWidth(200);
+
+    // Columna 2: "Num Documento" - tamaño mediano
+    columnModel.getColumn(2).setPreferredWidth(120);
+    
+    // Columna 3: "Departamento" - tamaño mediano
+    columnModel.getColumn(3).setPreferredWidth(120);
+
+    // Columna 4: "Turno" - tamaño mediano/pequeño
+    columnModel.getColumn(4).setPreferredWidth(100);
+
+    // Columna 5: "Acciones" - la hacemos más ancha para que quepan los botones
+    columnModel.getColumn(5).setPreferredWidth(160);
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
