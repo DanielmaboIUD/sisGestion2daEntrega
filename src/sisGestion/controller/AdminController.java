@@ -78,7 +78,7 @@ public class AdminController {
                 return emp;
             }
         }
-        return null; // No se encontró el empleado
+        return null;
     }
     public void createEmployeeFromUI(String name, String documentType, int documentNumber, String email, int age,
                                  String entryDate, String payment, String schedule,
@@ -88,7 +88,7 @@ public class AdminController {
     if (type == EmployeeType.TEMPORAL) {
         emp = new TempEmployee(name, documentType, documentNumber, email, age,
                                entryDate, payment, schedule, "TEMPORAL", extraAttribute);
-    } else { // PERMANENTE
+    } else {
         emp = new PermEmployee(name, documentType, documentNumber, email, age,
                                entryDate, payment, schedule, "PERMANENTE", extraAttribute);
     }

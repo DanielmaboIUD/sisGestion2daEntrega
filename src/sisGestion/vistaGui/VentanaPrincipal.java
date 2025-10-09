@@ -41,21 +41,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     DialogoAgregarDepartamento dialogo = new DialogoAgregarDepartamento(this, true, departmentController);
     dialogo.setVisible(true);
 
-    // Al cerrar el diálogo, actualizamos la tabla de departamentos
     actualizarTablaDepartamentos();
     }
 
     private void abrirDialogoAgregarEmpleado() {
         DialogoAgregarEmpleado dialogo = new DialogoAgregarEmpleado(this, true, adminController);
-        dialogo.setVisible(true); // La ejecución se pausa aquí hasta que el diálogo se cierre
+        dialogo.setVisible(true);
 
-        // Al cerrarse el diálogo, actualizamos la tabla para ver los cambios
         actualizarTablaEmpleados();
     }
 
     public void actualizarTablaEmpleados() {
         DefaultTableModel model = (DefaultTableModel) TablaEmpleados.getModel();
-        model.setRowCount(0); // Limpia la tabla
+        model.setRowCount(0);
 
         List<Employee> empleados = adminController.getEmployees();
 
@@ -64,18 +62,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 emp.getCode(),
                 emp.getName(),
                 emp.getDocumentNumber(),
-                "N/A", // Departamento (aún no implementado)
+                "N/A",
                 emp.getSchedule(),
-                "Acciones" // Futuro
+                "Acciones"
             };
             model.addRow(rowData);
         }
     }
     
     public void actualizarTablaDepartamentos() {
-    // Asegúrate de haber renombrado la variable a TablaDepartamentos
     DefaultTableModel model = (DefaultTableModel) TablaDepartamentos.getModel();
-    model.setRowCount(0); // Limpia la tabla
+    model.setRowCount(0);
 
     List<Department> departamentos = departmentController.getDepartments();
 
@@ -83,7 +80,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Object[] rowData = {
             dept.getCode(),
             dept.getName(),
-            dept.getEmployees().size(), // Muestra cuántos empleados tiene
+            dept.getEmployees().size(),
             (dept.getDepartmentHead() != null) ? dept.getDepartmentHead().getName() : "N/A",
             "Acciones"
         };

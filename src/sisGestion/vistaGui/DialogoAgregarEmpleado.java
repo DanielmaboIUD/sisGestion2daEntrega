@@ -14,15 +14,9 @@ import javax.swing.JTextField;
 import sisGestion.controller.AdminController;
 import sisGestion.model.EmployeeType;
 
-/**
- *
- * @author Marcela Realpe
- */
 public class DialogoAgregarEmpleado extends javax.swing.JDialog {
-        // Referencia al controlador
     private final AdminController adminController;
 
-    // Componentes del formulario
     private JTextField txtNombre, txtTipoDoc, txtNumDoc, txtEmail, txtEdad, txtFechaIngreso, txtSalario, txtHorario, txtExtra;
     private JComboBox<EmployeeType> comboTipoContrato;
     private JLabel lblExtra;
@@ -33,10 +27,9 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
 
         setTitle("Agregar Nuevo Empleado");
         setSize(400, 550);
-        setLayout(new GridLayout(12, 2, 10, 10)); // Layout simple de rejilla
+        setLayout(new GridLayout(12, 2, 10, 10));
         setLocationRelativeTo(parent);
 
-        // Inicializar y agregar componentes al diálogo
         add(new JLabel("Nombre:"));
         txtNombre = new JTextField();
         add(txtNombre);
@@ -73,12 +66,11 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
         comboTipoContrato = new JComboBox<>(EmployeeType.values());
         add(comboTipoContrato);
 
-        lblExtra = new JLabel("Beneficios:"); // Etiqueta dinámica
+        lblExtra = new JLabel("Beneficios:");
         add(lblExtra);
         txtExtra = new JTextField();
         add(txtExtra);
 
-        // Cambiar la etiqueta extra según el tipo de contrato seleccionado
         comboTipoContrato.addActionListener(e -> actualizarCampoExtra());
 
         JButton btnGuardar = new JButton("Guardar");
@@ -87,9 +79,8 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
 
         JButton btnCancelar = new JButton("Cancelar");
         add(btnCancelar);
-        btnCancelar.addActionListener(e -> dispose()); // Cierra el diálogo
-        
-        actualizarCampoExtra(); // Para que la etiqueta sea correcta al inicio
+        btnCancelar.addActionListener(e -> dispose());
+        actualizarCampoExtra();
     }
 
     private void actualizarCampoExtra() {
@@ -103,7 +94,6 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
     
     private void guardarEmpleado() {
         try {
-            // Recolectar datos del formulario
             String nombre = txtNombre.getText();
             String tipoDoc = txtTipoDoc.getText();
             int numDoc = Integer.parseInt(txtNumDoc.getText());
@@ -115,17 +105,15 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
             EmployeeType tipoContrato = (EmployeeType) comboTipoContrato.getSelectedItem();
             String extra = txtExtra.getText();
             
-            // Validar que los campos no estén vacíos
             if(nombre.isEmpty() || tipoDoc.isEmpty() || email.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Llamar al controlador para crear el empleado
             adminController.createEmployeeFromUI(nombre, tipoDoc, numDoc, email, edad, fechaIngreso, salario, horario, tipoContrato, extra);
 
             JOptionPane.showMessageDialog(this, "Empleado creado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            dispose(); // Cerrar el diálogo
+            dispose();
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para Documento y Edad.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
@@ -133,9 +121,6 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
     }
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DialogoAgregarEmpleado.class.getName());
 
-    /**
-     * Creates new form DialogoAgregarEmpleado
-     */
     public DialogoAgregarEmpleado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();

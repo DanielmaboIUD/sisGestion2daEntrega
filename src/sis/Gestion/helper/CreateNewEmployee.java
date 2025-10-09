@@ -10,10 +10,6 @@ import sisGestion.controller.AdminController;
 import sisGestion.model.Employee;
 import sisGestion.model.EmployeeType;
 
-/**
- *
- * @author Marcela Realpe
- */
 public class CreateNewEmployee {
     private final Scanner sc;
 

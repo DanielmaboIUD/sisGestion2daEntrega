@@ -4,10 +4,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-/**
- *
- * @author Daniel Marín
- */
 import java.util.Scanner;
 import sisGestion.controller.AdminController;
 import sisGestion.controller.DepartmentController;
