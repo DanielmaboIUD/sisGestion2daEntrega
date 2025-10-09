@@ -13,6 +13,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import sisGestion.controller.AdminController;
+import sisGestion.controller.DepartmentController;
+import sisGestion.vistaGui.VentanaPrincipal;
 
 public class ButtonEditor extends DefaultCellEditor{
     
@@ -21,9 +24,16 @@ public class ButtonEditor extends DefaultCellEditor{
     protected JButton deleteButton;
     private JTable table;
     private int row;
+    private AdminController adminController;
+    private DepartmentController departmentController;
+    private VentanaPrincipal ventanaPrincipal;
     
-    public ButtonEditor(JCheckBox checkBox) {
+    public ButtonEditor(JCheckBox checkBox, AdminController adminController, 
+           DepartmentController departmentController, VentanaPrincipal ventanaPrincipal) {
         super(checkBox);
+        this.adminController = adminController;
+        this.departmentController = departmentController;
+        this.ventanaPrincipal = ventanaPrincipal;
         panel = new JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
         editButton = new JButton("Editar");
         deleteButton = new JButton("Eliminar");
@@ -49,8 +59,10 @@ public class ButtonEditor extends DefaultCellEditor{
                         "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
 
                 if (confirm == JOptionPane.YES_OPTION) {
-
-                    JOptionPane.showMessageDialog(null, "Acción ELIMINAR para la fila: " + row);
+                    int id = (int) table.getValueAt(row, 0);
+                    adminController.eliminarEmpleado(id);
+                    ventanaPrincipal.actualizarTablaEmpleados();
+                    ventanaPrincipal.actualizarTablaDepartamentos();
                 }
             }
         });

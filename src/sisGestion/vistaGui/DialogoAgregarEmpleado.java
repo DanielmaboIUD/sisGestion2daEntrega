@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import sisGestion.controller.AdminController;
 import sisGestion.controller.DepartmentController;
 import sisGestion.model.Department;
+import sisGestion.model.Employee;
 import sisGestion.model.EmployeeType;
 
 public class DialogoAgregarEmpleado extends javax.swing.JDialog {
@@ -25,8 +26,10 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
     private JComboBox<EmployeeType> comboTipoContrato;
     private JComboBox<Object> comboDepartamentos;
     private JLabel lblExtra;
+    private Employee empleadoAEditar;
 
-    public DialogoAgregarEmpleado(JFrame parent, boolean modal, AdminController adminController, DepartmentController departmentController) {
+    public DialogoAgregarEmpleado(JFrame parent, boolean modal, AdminController adminController, 
+           DepartmentController departmentController) {
         super(parent, modal);
         this.adminController = adminController;
         this.departmentController = departmentController;
@@ -95,6 +98,39 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
         actualizarCampoExtra();
     }
     
+        public DialogoAgregarEmpleado(JFrame parent, boolean modal, AdminController adminController, 
+            DepartmentController departmentController, Employee empleadoAEditar) {
+            this(parent, modal, adminController, departmentController);
+            this.empleadoAEditar = empleadoAEditar;
+            setTitle("Editar Empleado");
+
+            llenarFormulario();
+        }
+        
+        private void llenarFormulario() {
+            txtNombre.setText(empleadoAEditar.getName());
+            txtTipoDoc.setText(empleadoAEditar.getDocumentType());
+            txtNumDoc.setText(String.valueOf(empleadoAEditar.getDocumentNumber()));
+            txtEmail.setText(empleadoAEditar.getEmail());
+            txtEdad.setText(String.valueOf(empleadoAEditar.getAge()));
+            txtFechaIngreso.setText(empleadoAEditar.getEntryDate());
+            txtSalario.setText(empleadoAEditar.getPayment());
+            txtHorario.setText(empleadoAEditar.getSchedule());
+
+            comboTipoContrato.setSelectedItem(EmployeeType.valueOf(empleadoAEditar.getContractType()));
+
+            if (empleadoAEditar instanceof sisGestion.model.PermEmployee perm) {
+                txtExtra.setText(perm.getBenefits());
+            } else if (empleadoAEditar instanceof sisGestion.model.TempEmployee temp) {
+                txtExtra.setText(temp.getOutDate());
+            }
+
+            Department deptoActual = departmentController.findDepartmentOfEmployee(empleadoAEditar);
+            if (deptoActual != null) {
+                comboDepartamentos.setSelectedItem(deptoActual);
+            }
+}
+    
         private void cargarDepartamentos() {
         List<Department> departamentos = departmentController.getDepartments();
         if (departamentos.isEmpty()) {
@@ -138,13 +174,22 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
             Department deptoSeleccionado = null;
             Object itemSeleccionado = comboDepartamentos.getSelectedItem();
             if (itemSeleccionado instanceof Department) {
-                deptoSeleccionado = (Department) itemSeleccionado;
+                  deptoSeleccionado = (Department) itemSeleccionado;
             }
+            if (empleadoAEditar != null) {
+                adminController.actualizarEmpleado(empleadoAEditar.getCode(), nombre, tipoDoc, numDoc, email, edad, fechaIngreso, 
+                            salario, horario, tipoContrato, extra, deptoSeleccionado);
+                JOptionPane.showMessageDialog(this, "Empleado actualizado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                
+                adminController.createEmployeeFromUI(nombre, tipoDoc, numDoc, email, edad, fechaIngreso, 
+                            salario, horario, tipoContrato, extra, deptoSeleccionado);
 
-            adminController.createEmployeeFromUI(nombre, tipoDoc, numDoc, email, edad, fechaIngreso, salario, horario, tipoContrato, extra, deptoSeleccionado);
+                JOptionPane.showMessageDialog(this, "Empleado creado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            }
+            
 
-            JOptionPane.showMessageDialog(this, "Empleado creado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para Documento y Edad.", "Error de Formato", JOptionPane.ERROR_MESSAGE);

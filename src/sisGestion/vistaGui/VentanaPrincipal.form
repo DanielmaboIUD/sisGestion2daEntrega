@@ -111,7 +111,7 @@
                         <Column editable="false" title="Num Documento" type="java.lang.Object"/>
                         <Column editable="false" title="Departamento" type="java.lang.Object"/>
                         <Column editable="false" title="Turno" type="java.lang.Object"/>
-                        <Column editable="false" title="Acciones" type="java.lang.Object"/>
+                        <Column editable="true" title="Acciones" type="java.lang.Object"/>
                       </Table>
                     </Property>
                   </Properties>

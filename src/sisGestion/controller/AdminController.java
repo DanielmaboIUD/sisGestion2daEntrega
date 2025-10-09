@@ -104,5 +104,51 @@ public class AdminController {
                 System.out.println("Asignado al departamento: " + selectedDepartment.getName());
             }
     }
+    }
+    
+    public boolean eliminarEmpleado(int id) {
+    Employee empleadoAEliminar = findEmployeeByCode(id);
+    if (empleadoAEliminar != null) {
+        departmentController.removeEmployeeFromAllDepartments(empleadoAEliminar);
+        
+        return employees.remove(empleadoAEliminar);
+    }
+        return false;
+    }
+    
+// En la clase: sisGestion.controller.AdminController.java
+
+public void actualizarEmpleado(int id, String nombre, String documentType, int documentNumber, String email, int age,
+                               String entryDate, String payment, String schedule,
+                               EmployeeType type, String extraAttribute, Department nuevoDepartamento) {
+    
+    // 1. Encontrar el empleado que queremos actualizar en nuestra lista
+    Employee empleadoAActualizar = findEmployeeByCode(id);
+
+    if (empleadoAActualizar != null) {
+        empleadoAActualizar.setName(nombre);
+        empleadoAActualizar.setDocumentType(documentType);
+        empleadoAActualizar.setDocumentNumber(documentNumber);
+        empleadoAActualizar.setEmail(email);
+        empleadoAActualizar.setAge(age);
+        empleadoAActualizar.setEntryDate(entryDate);
+        empleadoAActualizar.setPayment(payment);
+        empleadoAActualizar.setSchedule(schedule);
+        empleadoAActualizar.setContractType(type.toString());
+
+        if (empleadoAActualizar instanceof sisGestion.model.PermEmployee perm) {
+            perm.setBenefits(extraAttribute);
+        } else if (empleadoAActualizar instanceof sisGestion.model.TempEmployee temp) {
+            temp.setOutDate(extraAttribute);
+        }
+
+
+        departmentController.removeEmployeeFromAllDepartments(empleadoAActualizar);
+        if (nuevoDepartamento != null) {
+            departmentController.addEmployeeToDepartment(nuevoDepartamento, empleadoAActualizar);
+        }
+        
+        System.out.println("Empleado actualizado: " + empleadoAActualizar.getName());
+    }
 }
 }

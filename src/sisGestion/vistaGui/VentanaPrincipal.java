@@ -34,7 +34,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         int accionesColumnIndex = TablaEmpleados.getColumnModel().getColumnCount() - 1;
         TablaEmpleados.getColumnModel().getColumn(accionesColumnIndex).setCellRenderer(new ButtonRenderer());
-        TablaEmpleados.getColumnModel().getColumn(accionesColumnIndex).setCellEditor(new ButtonEditor(new JCheckBox()));
+        TablaEmpleados.getColumnModel().getColumn(accionesColumnIndex).setCellEditor(new ButtonEditor(new JCheckBox(), adminController, departmentController, this));
         
         actualizarTablaEmpleados();
         actualizarTablaDepartamentos();
@@ -170,7 +170,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
