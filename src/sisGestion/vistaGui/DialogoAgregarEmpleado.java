@@ -107,9 +107,8 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
             comboDepartamentos.addItem("Sin departamentos (crear primero)");
             comboDepartamentos.setEnabled(false);
         } else {
-            comboDepartamentos.addItem("Seleccionar departamento..."); // Opción por defecto
+            comboDepartamentos.addItem("Seleccionar departamento...");
             for (Department dept : departamentos) {
-                // Para que en el JComboBox se vea el nombre, necesitamos sobreescribir el método toString() en Department
                 comboDepartamentos.addItem(dept);
             }
         }
