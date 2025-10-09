@@ -12,11 +12,9 @@ import sis.Gestion.helper.CreateNewEmployee.EmployeeData;
 import sisGestion.model.Employee;
 import sisGestion.model.PermEmployee;
 import sisGestion.model.TempEmployee;
+import sisGestion.model.EmployeeType;
 
-/**
- *
- * @author Daniel Marín
- */
+
 public class AdminController {
     private final List<Employee> employees = new ArrayList<>();
     private final CreateNewEmployee helper;
@@ -82,4 +80,22 @@ public class AdminController {
         }
         return null; // No se encontró el empleado
     }
+    public void createEmployeeFromUI(String name, String documentType, int documentNumber, String email, int age,
+                                 String entryDate, String payment, String schedule,
+                                 EmployeeType type, String extraAttribute) {
+    Employee emp = null;
+
+    if (type == EmployeeType.TEMPORAL) {
+        emp = new TempEmployee(name, documentType, documentNumber, email, age,
+                               entryDate, payment, schedule, "TEMPORAL", extraAttribute);
+    } else { // PERMANENTE
+        emp = new PermEmployee(name, documentType, documentNumber, email, age,
+                               entryDate, payment, schedule, "PERMANENTE", extraAttribute);
+    }
+
+    if (emp != null) {
+        employees.add(emp);
+        System.out.println("Empleado creado desde la GUI: " + emp.getName());
+    }
+}
 }
