@@ -13,16 +13,19 @@ import sisGestion.model.Employee;
 import sisGestion.model.PermEmployee;
 import sisGestion.model.TempEmployee;
 import sisGestion.model.EmployeeType;
+import sisGestion.model.Department;
 
 
 public class AdminController {
     private final List<Employee> employees = new ArrayList<>();
     private final CreateNewEmployee helper;
     private final Scanner sc;
+    private final DepartmentController departmentController;
 
-    public AdminController(Scanner sc) {
+    public AdminController(Scanner sc,DepartmentController departmentController) {
         this.sc = sc;
         this.helper = new CreateNewEmployee(sc);
+        this.departmentController = departmentController;
     }
 
     private Employee createEmployee(EmployeeData data) {
@@ -82,13 +85,13 @@ public class AdminController {
     }
     public void createEmployeeFromUI(String name, String documentType, int documentNumber, String email, int age,
                                  String entryDate, String payment, String schedule,
-                                 EmployeeType type, String extraAttribute) {
+                                 EmployeeType type, String extraAttribute, Department selectedDepartment) {
     Employee emp = null;
 
     if (type == EmployeeType.TEMPORAL) {
         emp = new TempEmployee(name, documentType, documentNumber, email, age,
                                entryDate, payment, schedule, "TEMPORAL", extraAttribute);
-    } else { // PERMANENTE
+    } else {
         emp = new PermEmployee(name, documentType, documentNumber, email, age,
                                entryDate, payment, schedule, "PERMANENTE", extraAttribute);
     }
@@ -96,6 +99,10 @@ public class AdminController {
     if (emp != null) {
         employees.add(emp);
         System.out.println("Empleado creado desde la GUI: " + emp.getName());
+         if (selectedDepartment != null) {
+                departmentController.addEmployeeToDepartment(selectedDepartment, emp);
+                System.out.println("Asignado al departamento: " + selectedDepartment.getName());
+            }
     }
 }
 }

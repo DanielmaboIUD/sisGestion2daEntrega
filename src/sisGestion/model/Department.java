@@ -81,4 +81,8 @@ public class Department {
         }
         return null;
     }
+    @Override
+    public String toString() {
+        return this.name; // Esto hará que el JComboBox muestre el nombre del departamento
+    }
 }

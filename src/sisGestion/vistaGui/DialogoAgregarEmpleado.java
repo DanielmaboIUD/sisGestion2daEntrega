@@ -5,6 +5,7 @@
 package sisGestion.vistaGui;
 
 import java.awt.GridLayout;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -12,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import sisGestion.controller.AdminController;
+import sisGestion.controller.DepartmentController;
+import sisGestion.model.Department;
 import sisGestion.model.EmployeeType;
 
 /**
@@ -21,22 +24,24 @@ import sisGestion.model.EmployeeType;
 public class DialogoAgregarEmpleado extends javax.swing.JDialog {
         // Referencia al controlador
     private final AdminController adminController;
+    private final DepartmentController departmentController;
 
     // Componentes del formulario
     private JTextField txtNombre, txtTipoDoc, txtNumDoc, txtEmail, txtEdad, txtFechaIngreso, txtSalario, txtHorario, txtExtra;
     private JComboBox<EmployeeType> comboTipoContrato;
+    private JComboBox<Object> comboDepartamentos;
     private JLabel lblExtra;
 
-    public DialogoAgregarEmpleado(JFrame parent, boolean modal, AdminController adminController) {
+    public DialogoAgregarEmpleado(JFrame parent, boolean modal, AdminController adminController, DepartmentController departmentController) {
         super(parent, modal);
         this.adminController = adminController;
+        this.departmentController = departmentController;
 
         setTitle("Agregar Nuevo Empleado");
-        setSize(400, 550);
-        setLayout(new GridLayout(12, 2, 10, 10)); // Layout simple de rejilla
+        setSize(400, 600);
+        setLayout(new GridLayout(13, 2, 10, 10));
         setLocationRelativeTo(parent);
 
-        // Inicializar y agregar componentes al diálogo
         add(new JLabel("Nombre:"));
         txtNombre = new JTextField();
         add(txtNombre);
@@ -73,12 +78,16 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
         comboTipoContrato = new JComboBox<>(EmployeeType.values());
         add(comboTipoContrato);
 
-        lblExtra = new JLabel("Beneficios:"); // Etiqueta dinámica
+        lblExtra = new JLabel("Beneficios:");
         add(lblExtra);
         txtExtra = new JTextField();
         add(txtExtra);
+        
+        add(new JLabel("Departamento:"));
+        comboDepartamentos = new JComboBox<>();
+        cargarDepartamentos();
+        add(comboDepartamentos);
 
-        // Cambiar la etiqueta extra según el tipo de contrato seleccionado
         comboTipoContrato.addActionListener(e -> actualizarCampoExtra());
 
         JButton btnGuardar = new JButton("Guardar");
@@ -87,9 +96,23 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
 
         JButton btnCancelar = new JButton("Cancelar");
         add(btnCancelar);
-        btnCancelar.addActionListener(e -> dispose()); // Cierra el diálogo
+        btnCancelar.addActionListener(e -> dispose());
         
-        actualizarCampoExtra(); // Para que la etiqueta sea correcta al inicio
+        actualizarCampoExtra();
+    }
+    
+        private void cargarDepartamentos() {
+        List<Department> departamentos = departmentController.getDepartments();
+        if (departamentos.isEmpty()) {
+            comboDepartamentos.addItem("Sin departamentos (crear primero)");
+            comboDepartamentos.setEnabled(false);
+        } else {
+            comboDepartamentos.addItem("Seleccionar departamento..."); // Opción por defecto
+            for (Department dept : departamentos) {
+                // Para que en el JComboBox se vea el nombre, necesitamos sobreescribir el método toString() en Department
+                comboDepartamentos.addItem(dept);
+            }
+        }
     }
 
     private void actualizarCampoExtra() {
@@ -103,7 +126,6 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
     
     private void guardarEmpleado() {
         try {
-            // Recolectar datos del formulario
             String nombre = txtNombre.getText();
             String tipoDoc = txtTipoDoc.getText();
             int numDoc = Integer.parseInt(txtNumDoc.getText());
@@ -115,31 +137,25 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
             EmployeeType tipoContrato = (EmployeeType) comboTipoContrato.getSelectedItem();
             String extra = txtExtra.getText();
             
-            // Validar que los campos no estén vacíos
             if(nombre.isEmpty() || tipoDoc.isEmpty() || email.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            
+            Department deptoSeleccionado = null;
+            Object itemSeleccionado = comboDepartamentos.getSelectedItem();
+            if (itemSeleccionado instanceof Department) {
+                deptoSeleccionado = (Department) itemSeleccionado;
+            }
 
-            // Llamar al controlador para crear el empleado
-            adminController.createEmployeeFromUI(nombre, tipoDoc, numDoc, email, edad, fechaIngreso, salario, horario, tipoContrato, extra);
+            adminController.createEmployeeFromUI(nombre, tipoDoc, numDoc, email, edad, fechaIngreso, salario, horario, tipoContrato, extra, deptoSeleccionado);
 
             JOptionPane.showMessageDialog(this, "Empleado creado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            dispose(); // Cerrar el diálogo
+            dispose();
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para Documento y Edad.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
         }
-    }
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DialogoAgregarEmpleado.class.getName());
-
-    /**
-     * Creates new form DialogoAgregarEmpleado
-     */
-    public DialogoAgregarEmpleado(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        this.adminController = null;
     }
 
     /**
@@ -170,39 +186,7 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                DialogoAgregarEmpleado dialog = new DialogoAgregarEmpleado(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
