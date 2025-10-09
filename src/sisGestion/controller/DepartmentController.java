@@ -9,10 +9,6 @@ import java.util.List;
 import sisGestion.model.Department;
 import sisGestion.model.Employee;
 
-/**
- *
- * @author Daniel Marín
- */
 public class DepartmentController {
 
     private final List<Department> departments = new ArrayList<>();

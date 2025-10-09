@@ -17,16 +17,10 @@ import sisGestion.controller.DepartmentController;
 import sisGestion.model.Department;
 import sisGestion.model.EmployeeType;
 
-/**
- *
- * @author Marcela Realpe
- */
 public class DialogoAgregarEmpleado extends javax.swing.JDialog {
-        // Referencia al controlador
     private final AdminController adminController;
     private final DepartmentController departmentController;
 
-    // Componentes del formulario
     private JTextField txtNombre, txtTipoDoc, txtNumDoc, txtEmail, txtEdad, txtFechaIngreso, txtSalario, txtHorario, txtExtra;
     private JComboBox<EmployeeType> comboTipoContrato;
     private JComboBox<Object> comboDepartamentos;
