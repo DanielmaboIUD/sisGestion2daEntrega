@@ -292,7 +292,7 @@ public static void main(String args[]) {
             AdminController adminController = new AdminController(null, departmentController);
 
             new VentanaPrincipal(adminController, departmentController).setVisible(true);
-            // =========================================================
+
         });
     }
 
