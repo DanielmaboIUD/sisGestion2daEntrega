@@ -51,4 +51,13 @@ public class DepartmentController {
         }
         return null;
     }
+    public Department findDepartmentOfEmployee(Employee employee) {
+    for (Department dept : departments) {
+        // El método contains es una forma eficiente de ver si un objeto está en una lista
+        if (dept.getEmployees().contains(employee)) {
+            return dept;
+        }
+    }
+    return null; // No se encontró en ningún departamento
+}
 }

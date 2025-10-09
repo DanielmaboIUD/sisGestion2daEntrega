@@ -42,12 +42,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     dialogo.setVisible(true);
 
     actualizarTablaDepartamentos();
+    actualizarTablaDepartamentos();
     }
 
     private void abrirDialogoAgregarEmpleado() {
-        DialogoAgregarEmpleado dialogo = new DialogoAgregarEmpleado(this, true, adminController);
+        DialogoAgregarEmpleado dialogo = new DialogoAgregarEmpleado(this, true, adminController, departmentController);
         dialogo.setVisible(true);
 
+        
         actualizarTablaEmpleados();
     }
 
@@ -58,11 +60,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         List<Employee> empleados = adminController.getEmployees();
 
         for (Employee emp : empleados) {
+            
+            Department deptDelEmpleado = departmentController.findDepartmentOfEmployee(emp);
+        
+            String nombreDepto = (deptDelEmpleado != null) ? deptDelEmpleado.getName() : "Sin asignar";
+            
             Object[] rowData = {
                 emp.getCode(),
                 emp.getName(),
                 emp.getDocumentNumber(),
-                "N/A",
+                nombreDepto,
                 emp.getSchedule(),
                 "Acciones"
             };
@@ -80,7 +87,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Object[] rowData = {
             dept.getCode(),
             dept.getName(),
-            dept.getEmployees().size(),
             (dept.getDepartmentHead() != null) ? dept.getDepartmentHead().getName() : "N/A",
             "Acciones"
         };
@@ -184,17 +190,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         TablaDepartamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre departamento", "Núm empleados", "Jefe departamento", "Acciones"
+                "ID", "Nombre departamento", "Jefe departamento", "Acciones"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -282,12 +288,9 @@ public static void main(String args[]) {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            // ==================== CORRECCIÓN AQUÍ ====================
-            // 1. Creamos las instancias de la lógica (Controladores)
-            AdminController adminController = new AdminController(null); // Ya no necesita el Scanner
             DepartmentController departmentController = new DepartmentController();
+            AdminController adminController = new AdminController(null, departmentController);
 
-            // 2. Creamos la vista y le pasamos los controladores
             new VentanaPrincipal(adminController, departmentController).setVisible(true);
             // =========================================================
         });

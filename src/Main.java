@@ -12,8 +12,9 @@ import sisGestion.vista.AppView;
 public class Main {
   public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        AdminController adminController = new AdminController(scanner);
         DepartmentController departmentController = new DepartmentController();
+        AdminController adminController = new AdminController(scanner,departmentController);
+        
         
         AppView view = new AppView(adminController, departmentController, scanner);
         
