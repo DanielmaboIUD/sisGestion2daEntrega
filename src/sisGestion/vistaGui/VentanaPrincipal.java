@@ -28,7 +28,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         configurarEventos();
         configurarAnchosDeColumnas();
         
-        int alturaFila = 35; // Puedes cambiar este valor
+        int alturaFila = 35;
         TablaEmpleados.setRowHeight(alturaFila);
         TablaDepartamentos.setRowHeight(alturaFila);
         
@@ -107,27 +107,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
     
     private void configurarAnchosDeColumnas() {
-    // Obtenemos el modelo de columnas de la tabla de empleados
     javax.swing.table.TableColumnModel columnModel = TablaEmpleados.getColumnModel();
 
-    // Columna 0: "ID" - la hacemos pequeña
     columnModel.getColumn(0).setPreferredWidth(40);
-    columnModel.getColumn(0).setMaxWidth(50); // Opcional: fija un tamaño máximo
+    columnModel.getColumn(0).setMaxWidth(50);
 
-    // Columna 1: "Nombre" - le damos más espacio
-    columnModel.getColumn(1).setPreferredWidth(200);
+    columnModel.getColumn(1).setPreferredWidth(150);
 
-    // Columna 2: "Num Documento" - tamaño mediano
     columnModel.getColumn(2).setPreferredWidth(120);
     
-    // Columna 3: "Departamento" - tamaño mediano
     columnModel.getColumn(3).setPreferredWidth(120);
 
-    // Columna 4: "Turno" - tamaño mediano/pequeño
     columnModel.getColumn(4).setPreferredWidth(100);
 
-    // Columna 5: "Acciones" - la hacemos más ancha para que quepan los botones
-    columnModel.getColumn(5).setPreferredWidth(160);
+    columnModel.getColumn(5).setPreferredWidth(180);
 }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
