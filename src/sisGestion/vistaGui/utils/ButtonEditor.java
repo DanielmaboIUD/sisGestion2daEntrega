@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import sisGestion.controller.AdminController;
 import sisGestion.controller.DepartmentController;
+import sisGestion.model.Employee;
+import sisGestion.vistaGui.DialogoAgregarEmpleado;
 import sisGestion.vistaGui.VentanaPrincipal;
 
 public class ButtonEditor extends DefaultCellEditor{
@@ -44,7 +46,29 @@ public class ButtonEditor extends DefaultCellEditor{
             @Override
             public void actionPerformed(ActionEvent e) {
                 fireEditingStopped();
-                JOptionPane.showMessageDialog(null, "Acción EDITAR para la fila: " + row);
+
+
+                int id = (int) table.getValueAt(row, 0);
+        
+
+                Employee empleadoAEditar = adminController.findEmployeeByCode(id);
+
+                if (empleadoAEditar != null) {
+
+                    DialogoAgregarEmpleado dialogoEdicion = new DialogoAgregarEmpleado(
+                        ventanaPrincipal,
+                        true,
+                        adminController,
+                        departmentController,
+                        empleadoAEditar
+                    );
+                    dialogoEdicion.setVisible(true);
+
+                    ventanaPrincipal.actualizarTablaEmpleados();
+                    ventanaPrincipal.actualizarTablaDepartamentos();
+                } else {
+                    JOptionPane.showMessageDialog(table, "Error: No se pudo encontrar el empleado para editar.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
