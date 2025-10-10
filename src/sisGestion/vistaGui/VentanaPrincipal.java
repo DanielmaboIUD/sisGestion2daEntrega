@@ -13,6 +13,7 @@ import sisGestion.model.Employee;
 import sisGestion.vistaGui.utils.ButtonEditor;
 import sisGestion.vistaGui.utils.ButtonRenderer;
 import javax.swing.JCheckBox;
+import sisGestion.vistaGui.utils.DepartmentButtonEditor;
 
 public class VentanaPrincipal extends javax.swing.JFrame {
     
@@ -35,6 +36,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         int accionesColumnIndex = TablaEmpleados.getColumnModel().getColumnCount() - 1;
         TablaEmpleados.getColumnModel().getColumn(accionesColumnIndex).setCellRenderer(new ButtonRenderer());
         TablaEmpleados.getColumnModel().getColumn(accionesColumnIndex).setCellEditor(new ButtonEditor(new JCheckBox(), adminController, departmentController, this));
+        
+        int deptoAccionesCol = TablaDepartamentos.getColumnModel().getColumnCount() - 1;
+        TablaDepartamentos.getColumnModel().getColumn(deptoAccionesCol).setCellRenderer(new ButtonRenderer());
+        TablaDepartamentos.getColumnModel().getColumn(deptoAccionesCol).setCellEditor(new DepartmentButtonEditor(new JCheckBox(), departmentController, this));
         
         actualizarTablaEmpleados();
         actualizarTablaDepartamentos();
@@ -229,7 +234,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
