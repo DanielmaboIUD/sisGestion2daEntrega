@@ -29,46 +29,34 @@ public class DialogoEditarDepartamento extends javax.swing.JDialog {
         this.departmentController = controller;
         this.departamentoAEditar = depto;
 
-        // --- Configuración básica de la ventana ---
         setTitle("Editar Departamento");
         setSize(400, 160);
         setLayout(new BorderLayout());
         setLocationRelativeTo(parent);
 
-        // --- INICIO: Construcción de la Interfaz Visual ---
         
-        // Panel para el formulario (donde va el campo de texto)
         JPanel formPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 20));
-        formPanel.setBorder(new EmptyBorder(10, 10, 10, 10)); // Margen
+        formPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         formPanel.add(new JLabel("Nuevo nombre:"));
         
-        // Creamos el campo de texto y lo rellenamos con el nombre actual del departamento
         txtNuevoNombre = new JTextField(departamentoAEditar.getName(), 20); 
         formPanel.add(txtNuevoNombre);
         
-        // Añadimos el panel del formulario al centro de la ventana
         add(formPanel, BorderLayout.CENTER);
 
-        // Panel para los botones (Guardar y Cancelar)
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton btnGuardar = new JButton("Guardar");
         JButton btnCancelar = new JButton("Cancelar");
         buttonPanel.add(btnGuardar);
         buttonPanel.add(btnCancelar);
         
-        // Añadimos el panel de botones a la parte de abajo de la ventana
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // --- FIN: Construcción de la Interfaz Visual ---
 
-        // --- Lógica de los botones ---
         btnGuardar.addActionListener(e -> guardarCambios());
-        btnCancelar.addActionListener(e -> dispose()); // dispose() simplemente cierra la ventana
+        btnCancelar.addActionListener(e -> dispose());
     }
 
-    /**
-     * Método que se ejecuta al presionar "Guardar".
-     */
     private void guardarCambios() {
         String nuevoNombre = txtNuevoNombre.getText().trim();
         
@@ -77,10 +65,8 @@ public class DialogoEditarDepartamento extends javax.swing.JDialog {
             return;
         }
 
-        // Llamamos al controlador para que actualice el nombre
         departmentController.actualizarDepartamento(departamentoAEditar.getCode(), nuevoNombre);
         
-        // Cerramos la ventana
         dispose();
     }
 
